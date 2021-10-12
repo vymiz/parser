@@ -1,25 +1,23 @@
 import lxml
 import requests
 from bs4 import BeautifulSoup
+import time
 
-base = 'https://www.python.org'
+base = 'https://yandex.ru'
 html = requests.get(base).content
 soup = BeautifulSoup(html,'lxml')
-div = soup.find('div', class_ = 'shrubbery')
-menu = div.find('ul', class_ = 'menu')
+div = soup.find('div', class_ = 'news__panel mix-tabber-slide2__panel')
+ol = div.find('ol', class_ = 'list news__list')
+a = ol.find_all('a', class_ = 'home-link2 news__item list__item-content list__item-content_with-icon home-link2_color_inherit home-link2_hover_red')
+s_new = ''
+s_old = ''
+l = []
+l_old = []
+for _ in a:
+    s_new += str(_.getText()) + '\n'
+    print(_.get_text(), ' ', _.get('href'))
 
-
-# this part of code works properly
-l1 = []
-for _ in menu.find_all('a'):
-    l1.append(((_.get_text())))#, ' ', _.get('href')))
-
-l2 = []
-for _ in menu.find_all('time'):
-    l2.append(((_.get_text())))
-
-s = ''
-for i in range(len(l1)):
-    s += l2[i] + ': ' + l1[i] + '\n'
-
-print(s)
+if s_new != s_old:
+    s_old = s_new
+    print(time.ctime())
+    print(s_old)
