@@ -27,3 +27,11 @@ for i in range(len(txt)):
 for i in res:
     print(i)
 
+'''
+li = soup.div.ol.find_all('li')
+for _ in li:
+    ttl = _.find('div')
+    txt = _.find('a')
+    print(ttl['title'], "==> ", txt['aria-label'])
+
+'''
